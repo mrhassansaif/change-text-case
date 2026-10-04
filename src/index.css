@@ -1,7 +1,7 @@
-:root {
+:root,
+[data-theme='dark'] {
   color-scheme: dark;
 
-  /* Theme-ready tokens (dark theme values) */
   --background: #09090b;
   --surface: #111113;
   --surface-elevated: #18181b;
@@ -18,6 +18,7 @@
   --accent-hover: #93c5fd;
   --accent-soft: rgba(96, 165, 250, 0.12);
   --accent-border: rgba(96, 165, 250, 0.35);
+  --accent-inset: rgba(96, 165, 250, 0.08);
   --danger: #fca5a5;
   --danger-soft: rgba(239, 68, 68, 0.1);
   --danger-border: rgba(239, 68, 68, 0.25);
@@ -25,7 +26,17 @@
   --success-soft: rgba(34, 197, 94, 0.1);
   --success-border: rgba(34, 197, 94, 0.25);
 
-  /* Back-compat aliases */
+  --editor-focus-fill: rgba(255, 255, 255, 0.015);
+  --editor-footer-bg: rgba(255, 255, 255, 0.015);
+  --noise-opacity: 0.035;
+  --glow-1: rgba(96, 165, 250, 0.12);
+  --glow-2: rgba(129, 140, 248, 0.06);
+  --glow-3: rgba(56, 189, 248, 0.04);
+  --selection-bg: rgba(96, 165, 250, 0.28);
+  --selection-color: #ffffff;
+  --overlay-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --surprise-ring: 0 0 0 3px rgba(96, 165, 250, 0.12);
+
   --bg: var(--background);
 
   --radius-sm: 8px;
@@ -38,7 +49,56 @@
     0 0 0 1px rgba(96, 165, 250, 0.12),
     0 18px 44px rgba(0, 0, 0, 0.4),
     0 0 48px rgba(96, 165, 250, 0.06);
+}
 
+[data-theme='light'] {
+  color-scheme: light;
+
+  --background: #f3f4f6;
+  --surface: #ffffff;
+  --surface-elevated: #f8fafc;
+  --surface-hover: #eef0f3;
+  --border: rgba(24, 24, 27, 0.1);
+  --border-strong: rgba(24, 24, 27, 0.16);
+  --border-focus: rgba(37, 99, 235, 0.4);
+  --text-primary: #18181b;
+  --text-secondary: #3f3f46;
+  --text-muted: #52525b;
+  --text-subtle: #71717a;
+  --text-faint: #a1a1aa;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-soft: rgba(37, 99, 235, 0.1);
+  --accent-border: rgba(37, 99, 235, 0.32);
+  --accent-inset: rgba(37, 99, 235, 0.08);
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.08);
+  --danger-border: rgba(220, 38, 38, 0.22);
+  --success: #15803d;
+  --success-soft: rgba(22, 163, 74, 0.1);
+  --success-border: rgba(22, 163, 74, 0.24);
+
+  --editor-focus-fill: rgba(24, 24, 27, 0.025);
+  --editor-footer-bg: rgba(24, 24, 27, 0.03);
+  --noise-opacity: 0.02;
+  --glow-1: rgba(37, 99, 235, 0.08);
+  --glow-2: rgba(99, 102, 241, 0.05);
+  --glow-3: rgba(14, 165, 233, 0.04);
+  --selection-bg: rgba(37, 99, 235, 0.2);
+  --selection-color: #0f172a;
+  --overlay-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+  --surprise-ring: 0 0 0 3px rgba(37, 99, 235, 0.12);
+
+  --shadow-elevated:
+    0 0 0 1px rgba(24, 24, 27, 0.04),
+    0 14px 32px rgba(15, 23, 42, 0.08);
+  --shadow-focus:
+    0 0 0 1px rgba(37, 99, 235, 0.16),
+    0 16px 36px rgba(15, 23, 42, 0.1),
+    0 0 0 4px rgba(37, 99, 235, 0.06);
+}
+
+:root {
   font-family:
     'Inter',
     ui-sans-serif,
@@ -71,9 +131,14 @@ body,
   min-height: 100%;
 }
 
+html {
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
 body {
   background: var(--background);
   color: var(--text-primary);
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 #root {
@@ -87,6 +152,13 @@ a {
 }
 
 ::selection {
-  background: rgba(96, 165, 250, 0.28);
-  color: #fff;
+  background: var(--selection-bg);
+  color: var(--selection-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body {
+    transition: none;
+  }
 }

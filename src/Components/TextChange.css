@@ -19,19 +19,20 @@
   background:
     radial-gradient(
       ellipse 80% 50% at 50% -10%,
-      rgba(96, 165, 250, 0.12),
+      var(--glow-1),
       transparent 55%
     ),
     radial-gradient(
       ellipse 40% 30% at 90% 20%,
-      rgba(129, 140, 248, 0.06),
+      var(--glow-2),
       transparent 50%
     ),
     radial-gradient(
       ellipse 35% 25% at 10% 70%,
-      rgba(56, 189, 248, 0.04),
+      var(--glow-3),
       transparent 50%
     );
+  transition: opacity 180ms ease;
 }
 
 .app-noise {
@@ -39,10 +40,11 @@
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.035;
+  opacity: var(--noise-opacity);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 180px 180px;
+  transition: opacity 180ms ease;
 }
 
 .app-main {
@@ -98,6 +100,9 @@
   background: var(--surface);
   gap: 0.15rem;
   max-width: 100%;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
 }
 
 .mode-button {
@@ -147,7 +152,10 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-elevated);
   overflow: hidden;
-  transition: border-color 180ms ease, box-shadow 180ms ease;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .editor-card:focus-within {
@@ -254,7 +262,7 @@
 }
 
 .editor-textarea:focus {
-  background: rgba(255, 255, 255, 0.015);
+  background: var(--editor-focus-fill);
 }
 
 .editor-footer {
@@ -264,7 +272,8 @@
   gap: 0.75rem;
   padding: 0.55rem 0.85rem 0.7rem;
   border-top: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.015);
+  background: var(--editor-footer-bg);
+  transition: background-color 180ms ease, border-color 180ms ease;
 }
 
 .editor-footer.is-compact {
@@ -517,10 +526,10 @@
   white-space: nowrap;
   cursor: pointer;
   transition:
-    color 140ms ease,
-    background-color 140ms ease,
-    border-color 140ms ease,
-    box-shadow 140ms ease,
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
     transform 100ms ease;
 }
 
@@ -543,7 +552,7 @@
   color: var(--text-primary);
   background: var(--accent-soft);
   border-color: var(--accent-border);
-  box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.08);
+  box-shadow: inset 0 0 0 1px var(--accent-inset);
 }
 
 .case-button:disabled {
@@ -597,7 +606,7 @@
   color: var(--accent-hover);
   border-color: var(--accent-border);
   background: var(--accent-soft);
-  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.12);
+  box-shadow: var(--surprise-ring);
 }
 
 /* ── Recent ── */
@@ -674,8 +683,9 @@
   flex-direction: column;
   gap: 0.2rem;
   transition:
-    border-color 140ms ease,
-    background-color 140ms ease;
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
 }
 
 .recent-item:hover {
@@ -747,6 +757,10 @@
   border-radius: 6px;
   padding: 0.15rem 0.4rem;
   white-space: nowrap;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
 }
 
 /* ── Footer ── */

@@ -2,10 +2,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import KeyboardRoundedIcon from '@mui/icons-material/KeyboardRounded';
+import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import RedoRoundedIcon from '@mui/icons-material/RedoRounded';
 import UndoRoundedIcon from '@mui/icons-material/UndoRounded';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -26,45 +28,53 @@ import {
   formatRelativeTime,
   loadRecentItems,
 } from '../utils/recent';
+import {
+  applyTheme,
+  getStoredTheme,
+  setStoredTheme,
+  toggleTheme,
+} from '../utils/theme';
 import { getTextStats } from '../utils/textStats';
 import './TextChange.css';
 
 const COPY_RESET_MS = 1800;
-const GITHUB_URL = 'https://github.com/mrhassansaif/change-text-case';
+const GITHUB_URL = 'https://github.com/mrhassansaif';
 
-const tooltipTheme = createTheme({
-  palette: { mode: 'dark' },
-  components: {
-    MuiTooltip: {
-      styleOverrides: {
-        tooltip: {
-          backgroundColor: 'var(--surface-elevated)',
-          color: 'var(--text-primary)',
-          fontSize: '0.75rem',
-          fontWeight: 500,
-          letterSpacing: '-0.01em',
-          border: '1px solid var(--border)',
-          boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
+function createAppTheme(mode) {
+  return createTheme({
+    palette: { mode },
+    components: {
+      MuiTooltip: {
+        styleOverrides: {
+          tooltip: {
+            backgroundColor: 'var(--surface-elevated)',
+            color: 'var(--text-primary)',
+            fontSize: '0.75rem',
+            fontWeight: 500,
+            letterSpacing: '-0.01em',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--overlay-shadow)',
+          },
+          arrow: {
+            color: 'var(--surface-elevated)',
+          },
         },
-        arrow: {
-          color: 'var(--surface-elevated)',
+      },
+      MuiPopover: {
+        styleOverrides: {
+          paper: {
+            backgroundColor: 'var(--surface-elevated)',
+            backgroundImage: 'none',
+            color: 'var(--text-primary)',
+            border: '1px solid var(--border)',
+            borderRadius: '12px',
+            boxShadow: 'var(--shadow-elevated)',
+          },
         },
       },
     },
-    MuiPopover: {
-      styleOverrides: {
-        paper: {
-          backgroundColor: 'var(--surface-elevated)',
-          backgroundImage: 'none',
-          color: 'var(--text-primary)',
-          border: '1px solid var(--border)',
-          borderRadius: '12px',
-          boxShadow: 'var(--shadow-elevated)',
-        },
-      },
-    },
-  },
-});
+  });
+}
 
 function getModifierKeyLabel() {
   if (typeof navigator === 'undefined') return 'Ctrl';
@@ -119,11 +129,17 @@ function TextChange() {
   const [surprisePulse, setSurprisePulse] = useState(false);
   const [shortcutsAnchor, setShortcutsAnchor] = useState(null);
   const [now, setNow] = useState(Date.now());
+  const [theme, setTheme] = useState(() => getStoredTheme());
 
   const copyTimer = useRef(null);
   const resultCopyTimer = useRef(null);
   const downloadTimer = useRef(null);
   const surpriseTimer = useRef(null);
+  const muiTheme = useMemo(() => createAppTheme(theme), [theme]);
+  const isDark = theme === 'dark';
+  const themeToggleLabel = isDark
+    ? 'Switch to light mode'
+    : 'Switch to dark mode';
 
   const isPreserve = mode === 'preserve';
   const activeAction = getCaseActionById(actionId);
@@ -143,6 +159,15 @@ function TextChange() {
   useEffect(() => {
     setRecentItems(loadRecentItems());
   }, []);
+
+  useEffect(() => {
+    applyTheme(theme);
+    setStoredTheme(theme);
+  }, [theme]);
+
+  const handleThemeToggle = () => {
+    setTheme((current) => toggleTheme(current));
+  };
 
   useEffect(() => {
     if (!recentOpen) return undefined;
@@ -373,7 +398,7 @@ function TextChange() {
   );
 
   return (
-    <ThemeProvider theme={tooltipTheme}>
+    <ThemeProvider theme={muiTheme}>
       <div className="app-shell">
         <div className="app-glow" aria-hidden="true" />
         <div className="app-noise" aria-hidden="true" />
@@ -405,6 +430,17 @@ function TextChange() {
             </div>
 
             <div className="mode-bar-actions">
+              {renderActionIconButton({
+                title: themeToggleLabel,
+                ariaLabel: themeToggleLabel,
+                onClick: handleThemeToggle,
+                className: 'theme-toggle',
+                children: isDark ? (
+                  <LightModeRoundedIcon fontSize="small" />
+                ) : (
+                  <DarkModeRoundedIcon fontSize="small" />
+                ),
+              })}
               {renderActionIconButton({
                 title: 'Shortcuts',
                 onClick: (event) => setShortcutsAnchor(event.currentTarget),
