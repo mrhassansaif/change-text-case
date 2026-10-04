@@ -7,7 +7,9 @@
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES_Modules-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Netlify](https://img.shields.io/badge/Live-Netlify-00C7B7?logo=netlify&logoColor=white)](https://reactcasewizard.netlify.app/)
 
-**🌐 Live Demo:** [https://reactcasewizard.netlify.app/](https://reactcasewizard.netlify.app/)
+**🌐 Live Demo:** [https://reactcase-wizard.netlify.app//](https://reactcase-wizard.netlify.app/)
+
+**🌐 Old Wizard:** [https://reactcasewizard.netlify.app/](https://reactcasewizard.netlify.app/)
 
 Originally built in 2022, ReactCase Wizard returned in 2026 with a refreshed interface, expanded functionality, and a more polished developer-tool experience — while staying intentionally lightweight and fully client-side.
 
@@ -178,7 +180,7 @@ Recent items are stored in `localStorage` on your device. Active undo/redo histo
 A current UI screenshot is not included in the repository yet.  
 In the meantime, the best preview is the live app:
 
-👉 [https://reactcasewizard.netlify.app/](https://reactcasewizard.netlify.app/)
+👉 [https://reactcase-wizard.netlify.app//](https://reactcase-wizard.netlify.app/)
 
 ---
 
@@ -269,7 +271,7 @@ Conversion logic and helpers live in `utils/`; the UI stays centered in `TextCha
 
 The deployed 2026 revamp is available here:
 
-👉 **[https://reactcasewizard.netlify.app/](https://reactcasewizard.netlify.app/)**
+👉 **[https://reactcase-wizard.netlify.app//](https://reactcase-wizard.netlify.app/)**
 
 Repository:
 
@@ -282,7 +284,7 @@ Repository:
 These are ideas, not promises:
 
 - additional text utilities and case formats
-- optional light theme (token structure is already in place)
+- optional light theme (token structure is already in place) ✅ Done!
 - clearer shortcut discoverability
 - more developer-focused text tools
 - a README screenshot of the current UI
