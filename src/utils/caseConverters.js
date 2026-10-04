@@ -164,16 +164,6 @@ export function toInverseCase(text) {
     .join('');
 }
 
-export function countWords(text) {
-  if (!text.trim()) return 0;
-  return text.trim().split(/\s+/).filter(Boolean).length;
-}
-
-export function countLines(text) {
-  if (text === '') return 0;
-  return text.split(/\r\n|\r|\n/).length;
-}
-
 export const SAMPLE_TEXT =
   'The quick brown fox jumps over the lazy dog. Transform text instantly with ReactCase Wizard!';
 
@@ -209,3 +199,9 @@ export const CASE_GROUPS = [
     ],
   },
 ];
+
+export const ALL_CASE_ACTIONS = CASE_GROUPS.flatMap((group) => group.actions);
+
+export function getCaseActionById(actionId) {
+  return ALL_CASE_ACTIONS.find((action) => action.id === actionId) ?? null;
+}

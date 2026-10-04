@@ -1,7 +1,8 @@
 :root {
   color-scheme: dark;
 
-  --bg: #09090b;
+  /* Theme-ready tokens (dark theme values) */
+  --background: #09090b;
   --surface: #111113;
   --surface-elevated: #18181b;
   --surface-hover: #1c1c1f;
@@ -14,6 +15,19 @@
   --text-subtle: #71717a;
   --text-faint: #52525b;
   --accent: #60a5fa;
+  --accent-hover: #93c5fd;
+  --accent-soft: rgba(96, 165, 250, 0.12);
+  --accent-border: rgba(96, 165, 250, 0.35);
+  --danger: #fca5a5;
+  --danger-soft: rgba(239, 68, 68, 0.1);
+  --danger-border: rgba(239, 68, 68, 0.25);
+  --success: #86efac;
+  --success-soft: rgba(34, 197, 94, 0.1);
+  --success-border: rgba(34, 197, 94, 0.25);
+
+  /* Back-compat aliases */
+  --bg: var(--background);
+
   --radius-sm: 8px;
   --radius-md: 10px;
   --radius-lg: 14px;
@@ -40,7 +54,7 @@
   line-height: 1.5;
   font-weight: 400;
   color: var(--text-primary);
-  background-color: var(--bg);
+  background-color: var(--background);
 }
 
 *,
@@ -58,7 +72,7 @@ body,
 }
 
 body {
-  background: var(--bg);
+  background: var(--background);
   color: var(--text-primary);
 }
 
@@ -67,7 +81,8 @@ body {
 }
 
 button,
-textarea {
+textarea,
+a {
   font: inherit;
 }
 
