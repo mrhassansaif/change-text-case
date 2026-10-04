@@ -1,16 +1,8 @@
-import { useState } from 'react'
-import './App.css'
 import TextChange from './Components/TextChange'
-
+import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-     <TextChange />
-    </>
-  )
+  return <TextChange />
 }
 
 export default App
